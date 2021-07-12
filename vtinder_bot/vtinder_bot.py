@@ -1,4 +1,3 @@
-import requests
 from vk_get_photo.vk_get_photo import VkApi
 from vtinder_db.db_class import DbTinder
 from settings import settings
