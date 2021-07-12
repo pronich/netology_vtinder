@@ -1,6 +1,4 @@
 import requests
-import json
-import short_url
 from vk_get_photo.vk_get_photo import VkApi
 from vtinder_db.db_class import DbTinder
 from settings import settings
@@ -8,7 +6,7 @@ import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 import random
 from datetime import datetime
-
+from pprint import pprint
 
 login = settings['DB']['login']
 password = settings['DB']['password']
@@ -178,6 +176,7 @@ class Vtinder:
                 suggest_id = self.db.check_suggest(str(suggest_name))
                 self.db.insert_data([suggest_id, list(photo_dic.keys())])
                 json['items'].append({'user_id': suggest_name, 'photos': photo_dic, 'link': link})
+        pprint(json)
         return json
 
     def collect_data(self, user_id, count=5):
@@ -194,10 +193,13 @@ class Vtinder:
         user_id = self.db.check_user(user_name)
         data = self.db.get_users_data(user_id)
         collect_data = {}
+        json = {'items': []}
         for user in data:
             photos = self.db.get_users_photo(user[0])
             photo_link = []
             for photo in photos:
                 photo_link.append(photo[0])
             collect_data[user[1]] = '\n'.join([user[2], '\n'.join(photo_link)])
+            json['items'].append({'user_id': user[1], 'photos': photo_link, 'link': user[2]})
+        pprint(json)
         return collect_data
