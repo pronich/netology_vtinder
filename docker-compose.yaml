@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+  vtinderbot:
+    build: .
+    command: python main.py
+    volumes:
+      - .:/code
+    depends_on:
+      - postgres
