@@ -13,13 +13,15 @@ db_name = settings['DB']['db_name']
 create_bd = settings['DB']['create_bd']
 group_token = settings['tokens']['group_token']
 phrases = settings['vtinder_bot']['phrases']
-vk_token = settings['tokens']['vk_token']
+vk_login = settings['tokens']['login']
+vk_password = settings['tokens']['password']
+# vk_token = settings['tokens']['vk_token']
 
 class Vtinder:
     def __init__(self):
         self.bot_session = vk_api.VkApi(token=group_token)
         self.db = DbTinder([login, password, db_name, create_bd])
-        self.vk_get_photo = VkApi(vk_token)
+        self.vk_get_photo = VkApi(vk_login, vk_password)
         self.longpoll = VkLongPoll(self.bot_session)
         self.vk = self.bot_session.get_api()
         self.check_status = 0

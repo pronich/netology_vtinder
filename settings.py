@@ -1,6 +1,7 @@
 # Tokens
-vk_token = ''
 group_token = ''
+vk_login = ''
+vk_password = ''
 
 # Vk_group information
 group_id = ''
@@ -20,8 +21,9 @@ settings = {
         'create_bd': create_db
     },
     'tokens': {
-        'vk_token': vk_token,
-        'group_token': group_token
+        'group_token': group_token,
+        'login': vk_login,
+        'password': vk_password
     },
     'vtinder_bot': {
         'group_id': group_id,

@@ -3,8 +3,9 @@ import vk_api
 
 
 class VkApi:
-    def __init__(self, vk_token):
-        self.vk_session = vk_api.VkApi(token=vk_token)
+    def __init__(self, vk_login, vk_password):
+        self.vk_session = vk_api.VkApi(vk_login, vk_password)
+        self.vk_session.auth(token_only=True)
         self.owner_id = self.vk_session.method('users.get')[0]['id']
 
     def get_user_id(self, user_id=None):
