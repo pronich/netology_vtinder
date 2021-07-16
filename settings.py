@@ -1,16 +1,16 @@
 # Tokens
-group_token = ''
-vk_login = ''
-vk_password = ''
+group_token = '62d3cd33a2553d14e036d5fe430ca43cca5e8131c4ee48729c3be4f4a215f5b64fc7e68220ba1da6076a7'
+vk_login = 'xex103@yandex.ru'
+vk_password = 'Xexpron456852'
 
 # Vk_group information
-group_id = ''
+group_id = '205637354'
 
 # Database information
-db_login = ''
-db_password = ''
-db_name = ''
-create_db = False
+db_login = 'npronichev'
+db_password = 'pronich13'
+db_name = 'vtinder'
+create_db = True
 
 # Dictionary with all information
 settings = {
