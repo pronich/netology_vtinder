@@ -13,7 +13,10 @@ class DbTinder:
     def _create_tables(self):
         create_users = text('''create table if not exists users (
                         id serial primary key,
-                        user_name varchar(100) not null);''')
+                        user_name varchar(100) not null,
+                        sex integer not null,
+                        city_id integer not null,
+                        bdate integer not null);''')
         create_users_suggest = text('''create table if not exists users_suggest (
                         id serial primary key,
                         suggest_name varchar(100) unique not null,
@@ -55,11 +58,12 @@ class DbTinder:
             item_id = cur[0][0]
         return item_id
 
-    def insert_user(self, user_name):
+    def insert_user(self, user_info):
+
         insert = text('''
-                    insert into users (user_name) values (:user_name);''')
-        cur = self.conn.execute(insert, user_name=user_name)
-        return self.check_user(user_name)
+                    insert into users (user_name, sex, city_id, bdate) values (:user_name, :sex, :city_id, :bdate);''')
+        cur = self.conn.execute(insert, user_name=user_info[0], sex=user_info[1], city_id=user_info[2], bdate=user_info[3])
+        return self.check_user(user_info[0])
 
     def insert_suggest(self, item, user_id):
         insert = text('''
@@ -75,6 +79,18 @@ class DbTinder:
             cur = self.conn.execute(insert, suggest_id=suggest_id, photo=photo_link)
         return 'Complete'
 
+    def get_user_info(self, user_name):
+        req = text('''
+                select 
+                    id,
+                    user_name,
+                    sex,
+                    city_id,
+                    bdate
+                from users
+                where user_name = :user_name;''')
+        cur = self.conn.execute(req, user_name=user_name).fetchall()[0]
+        return cur
 
     def get_users_data(self, user_id):
         req = text('''

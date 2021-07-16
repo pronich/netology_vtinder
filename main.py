@@ -1,7 +1,4 @@
 from vtinder_bot.vtinder_bot import Vtinder
-from settings import settings
-
-vk_token = settings['tokens']['vk_token']
 
 if __name__ == '__main__':
     vtinder = Vtinder()
