@@ -110,7 +110,7 @@ class Vtinder:
                         message=phrases['Welcome'],
                         random_id=random.randint(1000000, 9999999)
                     )
-                elif event.text.lower() == 'find':
+                elif event.text.lower() in ['find', 'find friends']:
                     if self.db.check_user(str(event.user_id)) != None:
                         hashmap[event.user_id] = {'status': True,
                                                   'date': datetime.now()}
