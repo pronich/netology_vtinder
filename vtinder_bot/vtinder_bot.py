@@ -81,13 +81,11 @@ class VkApi:
 
     def get_city_id(self, city):
         headers = {
-            'country_id': '1'
+            'country_id': '1',
+            'q': city
         }
-        resp = self.vk_session.method('database.getCities', headers)['items']
-        for item in resp:
-            if item['title'] == city:
-                print(item['id'])
-                return item['id']
+        resp = self.vk_session.method('database.getCities', headers)['items'][0]['id']
+        return resp
 
 class Vtinder:
     def __init__(self):
@@ -225,6 +223,11 @@ class Vtinder:
                         try:
                             count = int(event.text)
                             user_id = str(event.user_id)
+                            self.vk.messages.send(
+                                user_id=event.user_id,
+                                message='Собирайю информацию, подождите...',
+                                random_id=random.randint(1000000, 9999999)
+                            )
 
                             collect_data = self.collect_data(user_id, count)
                             if collect_data == None:
@@ -342,4 +345,3 @@ class Vtinder:
             json['items'].append({'user_id': user[1], 'photos': photo_link, 'link': user[2]})
         pprint(json)
         return collect_data
-
